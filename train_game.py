@@ -1,28 +1,16 @@
 #!/usr/bin/python3
 
-import itertools
+import sys, re, itertools
 
-myList = [1,3,5,6]
+numbers_to_permute = []
 
-# Explanation of yield keyword:
-# an iterator is used to describe an object that has a next() method.
-# a yield allows a function to be iterated.
+operations = ['+','-','*','/']
 
-def all_perms(elements):
-    if len(elements) <=1:
-        yield elements
-    else:
-        for perm in all_perms(elements[1:]):
-            for i in range(len(elements)):
-                # nb elements[0:1] works in both string and list contexts
-                yield perm[:i] + elements[0:1] + perm[i:]
-            
-num = list(all_perms(myList))
+for arg in sys.argv[1:]:
+    numbers_to_permute.append(arg)
 
-oper = list(itertools.combinations_with_replacement(['+','-','*','/'],3))
+goal = 10
 
-for i in oper:
-    print(i)
-    
-for i in num:
-    print(i)
+num = list(itertools.permutations(numbers_to_permute))
+oper = list(itertools.combinations_with_replacement(operations,3))
+

@@ -39,7 +39,7 @@ num = list(itertools.permutations(numbers_to_permute))
 # Return a combination (with replacement) of every operator
 oper = list(itertools.combinations_with_replacement(operations,len(operations)-1))
 
-# 
+# PERFORMANCE-wise: not that great, must shy away from simple brute-force approach.
 for o in oper:
     for n in num:
         result = myZip(n,o)

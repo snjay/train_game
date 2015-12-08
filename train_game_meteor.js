@@ -110,11 +110,13 @@ if (Meteor.isServer) {
       
       new Fiber(function(){
         exec(pyprogram, function (error, stdout, stderr) {
-          // console.log("stdout: ");
-          console.log(stdout);
-          // console.log("errors: ");
-          // console.log(stderr);
-          // console.log('GO BACK TO CHROME CONSOLE AND CHECK NOW!');
+          console.log("splitting...");
+          results = stdout.split("\n");
+          for (x in results) {
+            console.log(x);
+            console.log(results[x]);
+          }
+          console.log("done!");
         });
       }).run();
 

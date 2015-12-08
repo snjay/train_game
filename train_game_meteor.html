@@ -1,0 +1,43 @@
+<head>
+  <title>train_game_meteor</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor!</h1>
+  {{> hello}}
+  {{> numbers}}
+
+
+</body>
+
+
+
+<template name="hello"> 
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+<template name="numbers">
+	<p> Enter four numbers! </p>
+	<form class="getNumbers" method="POST">
+	<input type="text" name="num1">
+	<input type="text" name="num2">
+	<input type="text" name="num3">
+	<input type="text" name="num4">
+	<input type="submit" value="Submit">
+	<input type="reset" value="Reset">
+	</form>
+
+	<p> You put in: {{num1}}, {{num2}}, {{num3}}, {{num4}}</p>
+	<p> {{equations}} </p>
+	<ul>
+      {{#each equations}}
+        {{> result}}
+      {{/each}}
+    </ul>
+</template>
+
+<template name="result">
+  	<li>{{eqn}}</li>
+</template>
+

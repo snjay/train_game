@@ -22,8 +22,8 @@ def solved(num, oper):
 
 # Check number of arguments provided
 if (len(sys.argv) != 6):
-	print ("Usage:", sys.argv[0], "[number] [number] [number] [number] [goal]")
-	sys.exit(1)
+    print ("Usage:", sys.argv[0], "[number] [number] [number] [number] [goal]")
+    sys.exit(1)
 
 # Four input numbers
 numbers_to_permute.append(int(sys.argv[1]))

@@ -1,12 +1,8 @@
 NumbersList = new Mongo.Collection('numbers');
 
-
-
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
 
-  // numbers start at 0
+  // numbers start at 1
   Session.setDefault('number1', 1);
   Session.setDefault('number2', 1);
   Session.setDefault('number3', 1);
@@ -14,21 +10,21 @@ if (Meteor.isClient) {
 
   console.log("AYY LMAO");
 
-  Template.hello.helpers({
-    counter: function () {
-      console.log("getting counter");
-      return Session.get('counter');
-    }
-  });
+  // Template.hello.helpers({
+  //   counter: function () {
+  //     console.log("getting counter");
+  //     return Session.get('counter');
+  //   }
+  // });
 
   // HELLO TEMPLATE
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      console.log("incremented counter");
-      Session.set('counter', Session.get('counter') + 1);
-    }
-  });
+  // Template.hello.events({
+  //   'click button': function () {
+  //     // increment the counter when button is clicked
+  //     console.log("incremented counter");
+  //     Session.set('counter', Session.get('counter') + 1);
+  //   }
+  // });
 
 
   Template.numbers.events({

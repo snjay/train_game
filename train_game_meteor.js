@@ -1,14 +1,16 @@
 NumbersList = new Mongo.Collection('numbers');
 
+
+
 if (Meteor.isClient) {
   // counter starts at 0
   Session.setDefault('counter', 0);
 
   // numbers start at 0
   Session.setDefault('number1', 1);
-  Session.setDefault('number2', 2);
-  Session.setDefault('number3', 3);
-  Session.setDefault('number4', 4);
+  Session.setDefault('number2', 1);
+  Session.setDefault('number3', 1);
+  Session.setDefault('number4', 1);
 
   console.log("AYY LMAO");
 
@@ -88,10 +90,12 @@ if (Meteor.isClient) {
       { eqn: "This is equation 1" },
       { eqn: "This is equation 2" },
       { eqn: "This is equation 3" }
-    ]
+    ];
+
   });
 }
 
+// SERVER SIDE
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
@@ -101,6 +105,7 @@ if (Meteor.isServer) {
     'performCalculations' : function(n1, n2, n3, n4, g) {
       var exec = Npm.require('child_process').exec;
       var Fiber = Npm.require('fibers');
+      // Dodgemaster_4000 right here
       var pyprogram = "python3 ../../../../../train_game.py " 
                         + String(n1) + " " 
                         + String(n2) + " "
@@ -108,26 +113,24 @@ if (Meteor.isServer) {
                         + String(n4) + " "
                         + String(g);
       
-      new Fiber(function(){
+      new Fiber (function() {
         exec(pyprogram, function (error, stdout, stderr) {
           console.log("splitting...");
           results = stdout.split("\n");
+          equations = [];
           for (x in results) {
+            // TODO: ADD INTO DATABASE
             console.log(x);
             console.log(results[x]);
+            equations.append( { 'eqn' : results[x] });
           }
           console.log("done!");
         });
       }).run();
-
     },
-
 
     'hello_world' : function() {
       console.log("Hello world!!!");
     }
-
-
   });
-
 }

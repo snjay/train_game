@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import itertools
+import sys, itertools
 
 numbers_to_permute = []
 operations = ['+','-','*','/']
@@ -13,14 +13,19 @@ def solved(num, oper):
     expr = str(num[0]) + oper[0] + str(num[1]) + oper[1] + str(num[2]) + oper[2] + str(num[3])
     return expr
 
-print("Please enter 4 numbers: ")
-numbers_to_permute.append(int(input("number 1: ")))
-numbers_to_permute.append(int(input("number 2: ")))
-numbers_to_permute.append(int(input("number 3: ")))
-numbers_to_permute.append(int(input("number 4: ")))
+if (len(sys.argv) != 6):
+	print ("   Usage:", sys.argv[0], "[number] [number] [number] [number] [goal]")
+	sys.exit(1)
 
-print("Enter a goal number: ")
-goal = int(input("goal: "))
+# Four input numbers
+numbers_to_permute.append(int(sys.argv[1]))
+numbers_to_permute.append(int(sys.argv[2]))
+numbers_to_permute.append(int(sys.argv[3]))
+numbers_to_permute.append(int(sys.argv[4]))
+
+
+# Goal number
+goal = int(sys.argv[5])
 
 # return permutation of every number
 num = list(itertools.permutations(numbers_to_permute))

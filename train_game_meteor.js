@@ -1,4 +1,5 @@
 NumbersList = new Mongo.Collection('numbers');
+ResultsList = new Mongo.Collection('equation_results');
 
 if (Meteor.isClient) {
 
@@ -82,13 +83,22 @@ if (Meteor.isClient) {
       return "Ayy lmao";
     },
 
-    equations: [
-      { eqn: "This is equation 1" },
-      { eqn: "This is equation 2" },
-      { eqn: "This is equation 3" }
-    ];
+    'results' : function() {
+      return ResultsList.find({});
+    }
+
+    // equations: [
+    //   { eqn: "This is equation 1" },
+    //   { eqn: "This is equation 2" },
+    //   { eqn: "This is equation 3" }
+    // ];
 
   });
+
+  // Template.result.helpers ({
+
+  // });
+
 }
 
 // SERVER SIDE
@@ -110,18 +120,21 @@ if (Meteor.isServer) {
                         + String(g);
       
       new Fiber (function() {
-        exec(pyprogram, function (error, stdout, stderr) {
+        exec(pyprogram, Meteor.bindEnvironment (function (error, stdout, stderr) {
           console.log("splitting...");
           results = stdout.split("\n");
-          equations = [];
           for (x in results) {
             // TODO: ADD INTO DATABASE
+            ResultsList.insert({
+              eqn: results[x]
+            });
             console.log(x);
             console.log(results[x]);
-            equations.append( { 'eqn' : results[x] });
           }
           console.log("done!");
-        });
+        }, function () {
+          console.log('Failed to bind environment - no results');
+        }));
       }).run();
     },
 

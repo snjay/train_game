@@ -6,11 +6,7 @@
   <h1>Welcome to Meteor!</h1>
 <!--   {{> hello}} -->
   {{> numbers}}
-
-
 </body>
-
-
 
 <!-- <template name="hello"> 
   <button>Click Me</button>
@@ -31,13 +27,13 @@
 	<p> You put in: {{num1}}, {{num2}}, {{num3}}, {{num4}}</p>
 	<p> {{equations}} </p>
 	<ul>
-      {{#each equations}}
-        {{> result}}
+      {{#each results}}
+        {{> r}}
       {{/each}}
     </ul>
 </template>
 
-<template name="result">
+<template name="r">
   	<li>{{eqn}}</li>
 </template>
 

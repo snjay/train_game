@@ -15,22 +15,46 @@
 
 <template name="numbers">
 	<p> Enter four numbers! </p>
-	<form class="getNumbers" method="POST">
-	<input type="text" name="num1">
-	<input type="text" name="num2">
-	<input type="text" name="num3">
-	<input type="text" name="num4">
-	<input type="submit" value="Submit">
-	<input type="reset" value="Reset">
-	</form>
+	<div class="form-group">
+		<div class="col-md-10">
+			<form class="getNumbers" method="POST">
+				<div class="row">
+					<div class="col-xs-3">
+						<input type="text" class="form-control" name="num1" placeholder="number">
+					</div>
+					<div class="col-xs-3">
+						<input type="text" class="form-control" name="num2" placeholder="number">
+					</div>
+					<div class="col-xs-3">
+						<input type="text" class="form-control" name="num3" placeholder="number">
+					</div>
+					<div class="col-xs-3">
+						<input type="text" class="form-control" name="num4" placeholder="number">
+					</div>
+					<p></p>
+					<p></p>
+					<div class="col-xs-3">
+						<input type="submit" class="btn btn-primary" value="Submit">
+						<input type="reset" class="btn btn-default" value="Reset">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 
-	<p> You put in: {{num1}}, {{num2}}, {{num3}}, {{num4}}</p>
-	<p> {{equations}} </p>
-	<ul>
-      {{#each results}}
-        {{> r}}
-      {{/each}}
-    </ul>
+	<div>
+		<p> You put in: {{num1}}, {{num2}}, {{num3}}, {{num4}}</p>
+		<p> {{equations}} </p>
+	</div>
+	
+	<div>
+		<ul>
+	      {{#each results}}
+	        {{> r}}
+	      {{/each}}
+	    </ul>
+	</div>
+
 </template>
 
 <template name="r">

@@ -4,28 +4,12 @@ ResultsList = new Mongo.Collection('equation_results');
 if (Meteor.isClient) {
 
   // numbers start at 1
-  Session.setDefault('number1', 1);
-  Session.setDefault('number2', 1);
-  Session.setDefault('number3', 1);
-  Session.setDefault('number4', 1);
+  //Session.setDefault('number1', 1);
+  //Session.setDefault('number2', 1);
+  //Session.setDefault('number3', 1);
+  //Session.setDefault('number4', 1);
 
   console.log("AYY LMAO");
-
-  // Template.hello.helpers({
-  //   counter: function () {
-  //     console.log("getting counter");
-  //     return Session.get('counter');
-  //   }
-  // });
-
-  // HELLO TEMPLATE
-  // Template.hello.events({
-  //   'click button': function () {
-  //     // increment the counter when button is clicked
-  //     console.log("incremented counter");
-  //     Session.set('counter', Session.get('counter') + 1);
-  //   }
-  // });
 
 
   Template.numbers.events({
@@ -105,10 +89,14 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
+    NumbersList.remove({});
+    ResultsList.remove({});
   });
 
   Meteor.methods ({
     'performCalculations' : function(n1, n2, n3, n4, g) {
+      NumbersList.remove({});
+      ResultsList.remove({});
       var exec = Npm.require('child_process').exec;
       var Fiber = Npm.require('fibers');
       // Dodgemaster_4000 right here
@@ -119,6 +107,8 @@ if (Meteor.isServer) {
                         + String(n4) + " "
                         + String(g);
       
+      // Fiber environment allows us to bind environment
+      // so that 
       new Fiber (function() {
         exec(pyprogram, Meteor.bindEnvironment (function (error, stdout, stderr) {
           console.log("splitting...");
@@ -128,6 +118,7 @@ if (Meteor.isServer) {
             ResultsList.insert({
               eqn: results[x]
             });
+            console.log("added in: ");
             console.log(x);
             console.log(results[x]);
           }

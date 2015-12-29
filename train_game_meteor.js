@@ -109,13 +109,14 @@ if (Meteor.isServer) {
         exec(pyprogram, Meteor.bindEnvironment (function (error, stdout, stderr) {
           console.log("splitting...");
           results = stdout.split("\n");
+          // remove last element
+          results.pop();
+          console.log(results);
           for (x in results) {
-            // TODO: ADD INTO DATABASE
-            ResultsList.insert({
-              eqn: results[x]
-            });
-            // console.log(x);
-            console.log(results[x]);
+              ResultsList.insert({
+                eqn: results[x]
+              });
+            //console.log(results[x]);
           }
           console.log("done!");
         }, function () {

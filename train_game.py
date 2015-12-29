@@ -45,6 +45,5 @@ oper = list(itertools.combinations_with_replacement(operations,len(operations)-1
 for o in oper:
     for n in num:
         result = myZip(n,o)
-        print(solved(n,o), "=", goal)
-        # if result == goal:
-            # print(solved(n,o), "=", goal)
+        if result == goal:
+            print(solved(n,o), "=", goal)

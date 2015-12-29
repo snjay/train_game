@@ -1,6 +1,8 @@
 NumbersList = new Mongo.Collection('numbers');
 ResultsList = new Mongo.Collection('equation_results');
 
+var found;
+
 if (Meteor.isClient) {
 
   // numbers start at 1
@@ -9,13 +11,13 @@ if (Meteor.isClient) {
   //Session.setDefault('number3', 1);
   //Session.setDefault('number4', 1);
 
-  console.log("AYY LMAO");
-
+  // console.log("AYY LMAO");
 
   Template.numbers.events({
     'submit .getNumbers' : function () {
-      // Prevent default browser form submit
       console.log("obtaining numbers now!");
+      found = true;
+      // Prevent default browser form submit
       event.preventDefault();
 
       // Get value from form element
@@ -34,7 +36,7 @@ if (Meteor.isClient) {
       // debugging
       console.log("check server console!");
 
-      Meteor.call('hello_world');
+      found = true;
       Meteor.call('performCalculations',n1, n2, n3, n4, 10);
 
       console.log("should be done on server side!");
@@ -43,45 +45,39 @@ if (Meteor.isClient) {
 
   Template.numbers.helpers({
     'num1' : function() {
-      console.log('hey1');
+      // console.log('hey1');
       return Session.get('number1');
     },
 
     'num2' : function() {
-      console.log('hey2');
+      // console.log('hey2');
       return Session.get('number2');
     },
 
     'num3' : function() {
-      console.log('hey3');
+      // console.log('hey3');
       return Session.get('number3');
     },
 
     'num4' : function() {
-      console.log('hey4');
+      // console.log('hey4');
       return Session.get('number4');
     },
 
     'equations' : function() {
       console.log('equations');
-      return "Ayy lmao";
+      // return "Ayy lmao";
     },
 
     'results' : function() {
       return ResultsList.find({});
+    },
+
+    'foundNumbers' : function() {
+      return true;
     }
 
-    // equations: [
-    //   { eqn: "This is equation 1" },
-    //   { eqn: "This is equation 2" },
-    //   { eqn: "This is equation 3" }
-    // ];
-
   });
-
-  // Template.result.helpers ({
-
-  // });
 
 }
 
@@ -107,8 +103,8 @@ if (Meteor.isServer) {
                         + String(n4) + " "
                         + String(g);
       
+      found = true;
       // Fiber environment allows us to bind environment
-      // so that 
       new Fiber (function() {
         exec(pyprogram, Meteor.bindEnvironment (function (error, stdout, stderr) {
           console.log("splitting...");
@@ -118,13 +114,13 @@ if (Meteor.isServer) {
             ResultsList.insert({
               eqn: results[x]
             });
-            console.log("added in: ");
-            console.log(x);
+            // console.log(x);
             console.log(results[x]);
           }
           console.log("done!");
         }, function () {
           console.log('Failed to bind environment - no results');
+          found = false;
         }));
       }).run();
     },

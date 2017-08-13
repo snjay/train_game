@@ -1,0 +1,74 @@
+<head>
+  <title>train_game_meteor</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor!</h1>
+  {{> numbers}}
+</body>
+
+<!-- <body>
+    {{> body}}
+</body>
+
+<template name="body">
+    {{#if isTrue}}
+        {{> hello}}
+    {{else}}
+        {{> goodbye}} 
+    {{/if}}
+</template> -->
+
+<template name="numbers">
+	<div>
+		<p> Enter four numbers! </p>
+		<div class="form-group">
+			<div class="col-md-10">
+				<form class="getNumbers" method="POST">
+					<div class="row">
+						<div class="col-xs-3">
+							<input type="text" class="form-control" name="num1" placeholder="number">
+						</div>
+						<div class="col-xs-3">
+							<input type="text" class="form-control" name="num2" placeholder="number">
+						</div>
+						<div class="col-xs-3">
+							<input type="text" class="form-control" name="num3" placeholder="number">
+						</div>
+						<div class="col-xs-3">
+							<input type="text" class="form-control" name="num4" placeholder="number">
+						</div>
+						<p></p>
+						<p></p>
+						<div class="col-xs-3">
+							<input type="submit" class="btn btn-primary" value="Submit">
+							<input type="reset" class="btn btn-default" value="Reset">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	{{#if foundNumbers}}
+		<div>
+			<p> You put in: {{num1}}, {{num2}}, {{num3}}, {{num4}}</p>
+			<p> {{equations}} </p>
+		</div>
+	
+		<div>
+			<ul class="list-group">
+		      {{#each results}}
+		        {{> r}}
+		      {{/each}}
+		    </ul>
+		</div>
+	{{/if}}
+	
+	</div>
+
+</template>
+
+<template name="r">
+  	<li href="#" class="list-group-item">{{eqn}}</li>
+</template>
+
